@@ -1,15 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import classes from "./content_script.module.css";
-
-function App() {
-  console.log(classes);
-  return (
-    <>
-      <h1 className={classes.bg}>Hello World</h1>
-    </>
-  )
-}
+import Toolbar from "./Components/Content/Toolbar";
 
 chrome.runtime.onMessage.addListener(function (msg: any, sender: chrome.runtime.MessageSender, sendResponse: Function) {
   if (msg.color) {
@@ -37,7 +28,7 @@ function init() {
   const container = document.getElementById('react-root');
   const root = createRoot(container!);
 
-  root.render(<App/>)  // Render react component
+  root.render(<Toolbar />)  // Render react component
 }
 
 
