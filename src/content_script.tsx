@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Toolbar from "./Components/Content/Toolbar";
+import { initEvents } from './utils/events';
 
 chrome.runtime.onMessage.addListener(function (msg: any, sender: chrome.runtime.MessageSender, sendResponse: Function) {
   if (msg.color) {
@@ -28,7 +29,9 @@ function init() {
   const container = document.getElementById('react-root');
   const root = createRoot(container!);
 
+
   root.render(<Toolbar />)  // Render react component
+  initEvents();
 }
 
 
