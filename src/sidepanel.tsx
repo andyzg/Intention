@@ -25,10 +25,11 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any): React.CSSProper
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
   padding: 2,
-  margin: `0 0 2px 0`,
+  margin: `0 0 8px 0`,
 
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? "lightgray" : "white",
+  border: "1px solid lightgray",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -36,12 +37,12 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any): React.CSSProper
 
 const getListStyle = (isDraggingOver: boolean) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: 2,
-  width: 250
+  width: 250,
+  border: "1px solid lightgray",
+  padding: 8,
 });
 
 const SidePanel = () => {
-  console.log("RENDER SIDE PANEL");
   const [tasks, setTasks] = useState([{
     id: generateId(),
     text: "hey"
@@ -94,6 +95,7 @@ const SidePanel = () => {
                   )}
                 </Draggable>
               ))}
+              {provided.placeholder}
             </div>
           )}
         </Droppable>
