@@ -1,10 +1,3 @@
-function polling() {
-  // console.log("polling");
-  setTimeout(polling, 1000 * 30);
-}
-
-polling();
-
 chrome.runtime.onMessage.addListener((message: any, sender: chrome.runtime.MessageSender) => {
   // The callback for runtime.onMessage must return falsy if we're not sending a response
   (async () => {

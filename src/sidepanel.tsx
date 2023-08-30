@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-const Popup = () => {
+const SidePanel = () => {
   const [count, setCount] = useState(0);
   const [currentURL, setCurrentURL] = useState<string>();
 
@@ -53,6 +53,6 @@ const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <React.StrictMode>
-    <Popup />
+    <SidePanel />
   </React.StrictMode>
 );
