@@ -5,6 +5,10 @@
   "description": "Chrome Extension, TypeScript, Visual Studio Code",
   "version": "1.0",
 
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+
   "options_ui": {
     "page": "options.html"
   },
@@ -26,7 +30,8 @@
   },
 
   "permissions": [
-    "storage"
+    "storage",
+    "sidePanel"
   ],
 
   "host_permissions": [
