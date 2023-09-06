@@ -1,8 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Toolbar from "./Components/Content/Toolbar";
-import { initEvents } from './utils/events';
-import "./content.css";
+import { initEvents } from './Events/keys';
 
 chrome.runtime.onMessage.addListener(function (msg: any, sender: chrome.runtime.MessageSender, sendResponse: Function) {
   if (msg.color) {

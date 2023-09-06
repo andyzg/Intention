@@ -2,24 +2,30 @@ import * as util from './util';
 import { ITask } from './types';
 
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(async () => {
   // Populate the local Chrome database
   const payload: { [key: string]: ITask } = {};
+
   for (let i = 0; i < 10; i++) {
     const task: ITask = {
       id: util.generateId(),
-      name: `Task ${i}`,
+      name: `Task ${i + 1}`,
+      priority: i + 1,
     }
+
     payload[task.id] = task;
   }
 
   console.log("Add payload: ", payload);
-  chrome.storage.sync.set(payload)
+  await chrome.storage.local.clear()
+  await chrome.storage.local.set({
+    tasks: payload,
+  })
 });
 
 
 chrome.storage.onChanged.addListener(() => {
-  chrome.storage.sync.get(null, (items) => {
+  chrome.storage.local.get(null, (items) => {
     console.log("Storage on change: ", items);
   });
 })
