@@ -3,12 +3,15 @@ import { createRoot } from "react-dom/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { DroppableStateSnapshot } from "react-beautiful-dnd";
 
-import { ITask } from "../../types";
+import { initApp } from "store/actions";
 import { getTasks } from "../../Data/task";
+import { setTasks } from "store/reducer/task";
+import { useDispatch, useSelector } from "react-redux";
 
 import TaskList from "./TaskList";
 import NextTask from "./NextTask";
 
+import { ITask, IAppState } from "../../types";
 
 
 // a little function to help us with reordering the result
@@ -33,15 +36,12 @@ const getListStyle = (isDraggingOver: boolean) => ({
 });
 
 const SidePanelContent: React.FunctionComponent = () => {
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const tasks = useSelector((state: IAppState ) => state.task.tasks || []);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      const tasks = await getTasks();
-      setTasks(tasks);
-      setLoading(false);
-    })();
+    dispatch(initApp());
   }, []);
 
   const onDragEnd = (result: any) => {
@@ -55,7 +55,7 @@ const SidePanelContent: React.FunctionComponent = () => {
       result.destination.index
     );
 
-    setTasks(newTaskOrder);
+    dispatch(setTasks(newTaskOrder));
   }
 
   return (

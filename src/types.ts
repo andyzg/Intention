@@ -3,3 +3,11 @@ export interface ITask {
   name: string;
   priority: number
 }
+
+export interface ITaskReducer {
+  tasks: ITask[];
+}
+
+export interface IAppState {
+  task: ITaskReducer;
+}

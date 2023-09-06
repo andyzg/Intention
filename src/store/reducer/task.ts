@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ITask } from '../../types';
-
-interface IState {
-  tasks: ITask[];
-}
+import { ITask, ITaskReducer } from '../../types';
 
 export const TaskSlice = createSlice({
   name: 'Task',
@@ -11,19 +7,22 @@ export const TaskSlice = createSlice({
     tasks: [],
   },
   reducers: {
-    addTask: (state: IState, action) => {
+    addTask: (state: ITaskReducer, action) => {
       state.tasks.push(action.payload);
     },
-    removeTask: (state: IState, action) => {
+    setTasks: (state: ITaskReducer, action) => {
+      state.tasks = action.payload;
+    },
+    removeTask: (state: ITaskReducer, action) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
-    updateTask: (state: IState, action) => {
+    updateTask: (state: ITaskReducer, action) => {
       const index = state.tasks.findIndex((task) => task.id === action.payload.id);
       state.tasks[index] = action.payload;
     },
   },
 });
 
-export const { addTask, removeTask, updateTask } = TaskSlice.actions;
+export const { addTask, removeTask, updateTask, setTasks } = TaskSlice.actions;
 
 export default TaskSlice.reducer;
