@@ -1,7 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+
+import { Store } from 'webext-redux';
+import { Provider } from 'react-redux';
+
 import Toolbar from "./Components/Content/Toolbar";
 import { initEvents } from './Events/keys';
+
 
 chrome.runtime.onMessage.addListener(function (msg: any, sender: chrome.runtime.MessageSender, sendResponse: Function) {
   if (msg.color) {
@@ -18,6 +23,7 @@ chrome.runtime.onMessage.addListener(function (msg: any, sender: chrome.runtime.
 function init() {
   const body = document.querySelector('body')
   const app = document.createElement('div')
+  const store = new Store();
 
   app.id = 'react-root'
 
@@ -30,8 +36,14 @@ function init() {
   const root = createRoot(container!);
 
 
-  root.render(<Toolbar />)  // Render react component
-  initEvents();
+  store.ready().then(() => {
+    root.render(
+      <Provider store={store}>
+        <Toolbar />
+      </Provider>
+    )  // Render react component
+    initEvents();
+  });
 }
 
 

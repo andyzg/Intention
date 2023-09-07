@@ -1,5 +1,9 @@
 import * as util from './util';
 import { ITask } from './types';
+import store from "./store/store";
+import { wrapStore } from 'webext-redux';
+
+wrapStore(store);
 
 
 chrome.runtime.onInstalled.addListener(async () => {

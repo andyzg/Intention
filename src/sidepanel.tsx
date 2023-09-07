@@ -11,13 +11,18 @@ import "./css/reset.css";
 
 // Redux initialization
 import { Provider } from "react-redux";
-import store from "./store/store";
+import { Store } from "webext-redux";
+
+const store = new Store();
 
 
-const root = createRoot(document.getElementById("root")!);
 
-root.render(
-  <Provider store={store}>
-    <SidePanel />
-  </Provider>
-);
+store.ready().then(() => {
+  const root = createRoot(document.getElementById("root")!);
+
+  root.render(
+    <Provider store={store}>
+      <SidePanel />
+    </Provider>
+  );
+});
