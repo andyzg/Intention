@@ -11,6 +11,14 @@ export interface ITaskReducer {
 export interface ISessionReducer {
   task?: ITask;
   startTime?: number;
+  urlSession: IUrlSession[];
+  activeUrlSession?: IUrlSession;
+}
+
+export interface IUrlSession {
+  url: string;
+  startTime: number;
+  duration?: number;
 }
 
 export interface IAppState {

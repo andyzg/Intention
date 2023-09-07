@@ -2,6 +2,7 @@ import * as util from './util';
 import { ITask } from './types';
 import store from "./store/store";
 import { wrapStore } from 'webext-redux';
+import { addUrlChange } from "store/reducer/session";
 
 wrapStore(store);
 
@@ -49,3 +50,21 @@ chrome.runtime.onMessage.addListener((message: any, sender: chrome.runtime.Messa
     }
   })();
 });
+
+const storeActiveTab = async () => {
+  let queryOptions = { active: true };
+  // `tab` will either be a `tabs.Tab` instance or `undefined`.
+  let [tab] = await chrome.tabs.query(queryOptions);
+  console.log("Active tab: ", tab.url);
+  store.dispatch(addUrlChange(tab.url));
+};
+
+chrome.tabs.onActivated.addListener(async (activeInfo: object) => {
+  storeActiveTab();
+});
+
+chrome.tabs.onUpdated.addListener(async (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+  if (changeInfo.status === 'complete') {
+    storeActiveTab();
+  }
+})
