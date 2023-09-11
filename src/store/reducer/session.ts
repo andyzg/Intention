@@ -4,7 +4,7 @@ import { ITask, ISessionReducer, IUrlSession } from 'types';
 export const SessionSlice = createSlice({
   name: 'Session',
   initialState: {
-    task: undefined,
+    taskId: undefined,
     startTime: undefined,
     urlSession: [],
     activeUrlSession: undefined,
@@ -12,18 +12,17 @@ export const SessionSlice = createSlice({
 
   reducers: {
     startSession: (state: ISessionReducer, action) => {
-      state.task = action.payload;
+      state.taskId = action.payload.id;
       state.startTime = Date.now();
     },
     addUrlChange: (state: ISessionReducer, action) => {
       console.log('addUrlChange', action.payload);
       const activeUrlSession = state.activeUrlSession;
       if (activeUrlSession) {
-        const duration = Date.now() - activeUrlSession.startTime;
         state.urlSession.push({
           url: activeUrlSession.url,
           startTime: activeUrlSession.startTime,
-          duration,
+          endTime: Date.now(),
         });
       }
 

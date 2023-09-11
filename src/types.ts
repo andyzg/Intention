@@ -1,7 +1,8 @@
 export interface ITask {
   id: string;
   name: string;
-  priority: number
+  priority: number;
+  createdAt: number;
 }
 
 export interface ITaskReducer {
@@ -9,9 +10,9 @@ export interface ITaskReducer {
 }
 
 export interface ISessionReducer {
-  task?: ITask;
+  taskId?: string;
   startTime?: number;
-  duration?: number;
+  endTime?: number;
   urlSession: IUrlSession[];
   activeUrlSession?: IUrlSession;
 }
@@ -19,7 +20,7 @@ export interface ISessionReducer {
 export interface IUrlSession {
   url: string;
   startTime: number;
-  duration?: number;
+  endTime?: number;
 }
 
 export interface IAppState {

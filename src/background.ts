@@ -16,6 +16,7 @@ chrome.runtime.onInstalled.addListener(async () => {
       id: util.generateId(),
       name: `Task ${i + 1}`,
       priority: i + 1,
+      createdAt: Date.now(),
     }
 
     payload[task.id] = task;
