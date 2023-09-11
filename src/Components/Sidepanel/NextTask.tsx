@@ -4,9 +4,10 @@ import { ITask } from "../../types";
 import classes from "./nexttask.module.css";
 import { useDispatch } from "react-redux";
 
-import { IAppState } from "../../types";
+import { IAppState } from "types";
 import { useSelector } from "react-redux";
 import { startSession } from "store/reducer/session";
+import { completeTask } from "store/reducer/task";
 
 interface NextTaskProps {
 }
@@ -20,10 +21,15 @@ const NextTask: React.FunctionComponent<NextTaskProps> = (props) => {
     dispatch(startSession(topTask));
   };
 
+  const onDone = () => {
+    dispatch(completeTask(topTask));
+  };
+
   return (
     <div className={classes.container}>
       Top task: {topTask?.name}
       <button onClick={onStart}> Start </button>
+      <button onClick={onDone}> Done </button>
     </div>
   );
 };

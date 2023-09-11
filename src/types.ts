@@ -11,6 +11,7 @@ export interface ITaskReducer {
 export interface ISessionReducer {
   task?: ITask;
   startTime?: number;
+  duration?: number;
   urlSession: IUrlSession[];
   activeUrlSession?: IUrlSession;
 }
@@ -24,4 +25,9 @@ export interface IUrlSession {
 export interface IAppState {
   task: ITaskReducer;
   session: ISessionReducer;
+}
+
+export interface ICompletedTask {
+  task: ITask;
+  session: ISessionReducer[];
 }

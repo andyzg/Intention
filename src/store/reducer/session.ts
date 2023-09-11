@@ -31,7 +31,7 @@ export const SessionSlice = createSlice({
         url: action.payload,
         startTime: Date.now(),
       }
-    }
+    },
   },
 });
 
