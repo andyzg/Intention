@@ -12,6 +12,7 @@ listenerMiddleware.startListening({
     const { task: taskReducer, session } = listenerApi.getState() as IAppState;
     const task = taskReducer.tasks.find((t) => t.id === session.taskId);
     (async () => {
+      console.log("Completing task: ", task);
       if (task) {
         await createCompletedTask(task, session);
       }

@@ -6,8 +6,8 @@
     "node_modules"
   ],
   "watch": [
-    "server/dist"
+    "server"
   ],
-  "exec": "node -r tsconfig-paths/register -r ts-node/register ./server/index.ts",
+  "exec": "TS_NODE_PROJECT=server node -r tsconfig-paths/register -r ts-node/register ./server/index.ts",
   "ext": "ts, js"
 }
