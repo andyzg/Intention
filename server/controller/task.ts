@@ -9,13 +9,17 @@ export const completeTask = async (task: any, session: any) => {
   console.log("Task data: ", taskData);
   const { data, error } = await db.from("Task").insert(taskData).select();
 
-  console.log("Data: ", data, typeof data, error);
+  if (data) {
+    const newTask = data[0];
+    const r2 = await db.from("Session").insert({
+      created_at: new Date(session.startTime),
+      ended_at: new Date(),
+      url_session: JSON.stringify(session.urlSession),
+      task_id: newTask.id,
+    });
 
-  const r2 = await db.from("Session").insert({
-    created_at: new Date(session.startTime),
-    ended_at: new Date(),
-    url_session: JSON.stringify(session.urlSession),
-  });
-
-  console.log(r2);
+    console.log(r2);
+  } else {
+    console.log("Error: ", error);
+  }
 };
