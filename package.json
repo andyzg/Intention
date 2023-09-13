@@ -9,7 +9,8 @@
     "clean": "rimraf dist",
     "test": "npx jest",
     "style": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "watch-server": "nodemon"
+    "watch-server": "nodemon",
+    "task-script": "TS_NODE_PROJECT=server node -r tsconfig-paths/register -r ts-node/register ./server/scripts/task.ts"
   },
   "author": "",
   "license": "MIT",

@@ -29,7 +29,7 @@ function init() {
 
   console.log("RENDER!");
   if (body) {
-    body.prepend(app)
+    body.append(app)
   }
 
   const container = document.getElementById('react-root');
