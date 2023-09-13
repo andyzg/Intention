@@ -2,10 +2,12 @@ import { db } from "@/data/db";
 
 
 export const completeTask = async (task: any, session: any) => {
-  const { data, error } = await db.from("Task").insert({
+  const taskData = {
     name: task.name,
     created_at: new Date(task.createdAt),
-  }).select();
+  }
+  console.log("Task data: ", taskData);
+  const { data, error } = await db.from("Task").insert(taskData).select();
 
   console.log("Data: ", data, typeof data, error);
 

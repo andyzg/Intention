@@ -26,9 +26,15 @@ export interface IUrlSession {
 export interface IAppState {
   task: ITaskReducer;
   session: ISessionReducer;
+  auth: any;
 }
 
 export interface ICompletedTask {
   task: ITask;
   session: ISessionReducer[];
+}
+
+export interface IAuthToken {
+  accessToken: string;
+  refreshToken: string;
 }

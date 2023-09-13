@@ -1,4 +1,5 @@
 import * as util from './util';
+import { auth } from "Data/db";
 import { ITask } from './types';
 import store from "./store/store";
 import { wrapStore } from 'webext-redux';
@@ -48,6 +49,20 @@ chrome.runtime.onMessage.addListener((message: any, sender: chrome.runtime.Messa
         path: 'sidepanel.html',
         enabled: true
       });
+    }
+  })();
+
+  (async () => {
+    if (message.type === "auth") {
+      console.log("AUTH EVENT: ", message);
+      const { event, session } = message.payload;
+      if (event === "INITIAL_SESSION") {
+        const { access_token, refresh_token } = session;
+        auth.setSession({
+          access_token,
+          refresh_token,
+        });
+      }
     }
   })();
 });

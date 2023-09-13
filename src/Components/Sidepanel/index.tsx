@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { DroppableStateSnapshot } from "react-beautiful-dnd";
+import useAuth from "Hooks/useAuth";
 
 import { initApp } from "store/actions";
 import { getTasks } from "../../Data/task";
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TaskList from "./TaskList";
 import NextTask from "./NextTask";
+import GoogleAuth from "../Auth/Google";
 
 import { ITask, IAppState } from "../../types";
 
@@ -60,6 +62,7 @@ const SidePanelContent: React.FunctionComponent = () => {
 
   return (
     <div>
+      <GoogleAuth />
       <NextTask />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="tasks">
@@ -80,6 +83,8 @@ const SidePanelContent: React.FunctionComponent = () => {
 };
 
 const SidePanel = () => {
+  useAuth();
+
   return (
     <SidePanelContent />
   );

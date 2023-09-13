@@ -4,6 +4,7 @@ import { ITask } from "../../types";
 import classes from "./nexttask.module.css";
 import { useDispatch } from "react-redux";
 
+import { auth } from "Data/db";
 import { IAppState } from "types";
 import { useSelector } from "react-redux";
 import { startSession } from "store/reducer/session";
@@ -21,7 +22,12 @@ const NextTask: React.FunctionComponent<NextTaskProps> = (props) => {
     dispatch(startSession(topTask));
   };
 
-  const onDone = () => {
+  const onDone = async () => {
+    const session = await auth.getSession();
+    console.log(session);
+
+    const user = await auth.getUser();
+    console.log("USER: ", user);
     dispatch(completeTask(topTask));
   };
 

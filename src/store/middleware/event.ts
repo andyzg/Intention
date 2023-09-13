@@ -2,19 +2,23 @@ import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { completeTask } from 'store/reducer/task';
 import { IAppState } from 'types';
 import { createCompletedTask } from 'api/event';
+import { auth } from "Data/db";
 
 const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
   actionCreator: completeTask,
   effect: (action, listenerApi) => {
-    console.log("Complete task", listenerApi.getState());
-    const { task: taskReducer, session } = listenerApi.getState() as IAppState;
+    const { task: taskReducer, session, auth: authReducer } = listenerApi.getState() as IAppState;
     const task = taskReducer.tasks.find((t) => t.id === session.taskId);
     (async () => {
-      console.log("Completing task: ", task);
+      console.log("AUTH: ", authReducer);
+
       if (task) {
-        await createCompletedTask(task, session);
+        await createCompletedTask(task, session, {
+          accessToken: authReducer.session.access_token,
+          refreshToken: authReducer.session.refresh_token
+        });
       }
     })();
 

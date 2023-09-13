@@ -6,10 +6,15 @@
         "module": "ES6",
         "esModuleInterop": true,
         "sourceMap": false,
-        "rootDir": "src",
+        "rootDir": "./src",
         "outDir": "dist/js",
         "noEmitOnError": true,
         "jsx": "react",
         "typeRoots": [ "node_modules/@types" ]
-    }
+    },
+    "exclude": [
+      "node_modules",
+      "dist",
+      "server"
+    ]
 }
