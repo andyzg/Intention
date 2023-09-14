@@ -1,9 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "Data/db";
 
 export const GoogleAuth = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    auth.getUser();
+    auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setShow(false);
+      } else {
+        setShow(true);
+      }
+    });
+  }, []);
 
   const onLoginClick = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -14,6 +26,11 @@ export const GoogleAuth = () => {
       password
     })
     console.log("DATA: ", data, error);
+  }
+
+
+  if (!show) {
+    return null;
   }
 
   return (

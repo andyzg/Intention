@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { db } from "@/data/db";
 const regex = new RegExp("^(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9.-]+)");
-console.log("Hey");
 
 const processSession = (session: any) => {
   const urlSessions = JSON.parse(session.url_session);

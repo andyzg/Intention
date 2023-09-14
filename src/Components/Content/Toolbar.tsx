@@ -6,20 +6,14 @@ import * as TaskData from 'Data/task';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const [pinnedTask, setPinnedTask] = React.useState<ITask | null>(null);
   const session = useSelector((state: IAppState) => state.session);
+  const sessionState = !!session.taskId ? "active" : "inactive";
+  const pinnedTask = useSelector((state: IAppState) => state.task.tasks.find((task: ITask) => task.id === state.session?.taskId));
 
   console.log(session);
-  useEffect(() => {
-    (async () => {
-      const tasks = await TaskData.getTasks();
-      setPinnedTask(tasks[0]);
-    })();
-  }, []);
-
   return (
-    <div className={classes.container}>
-      <div className={classes.toolbar}>Toolbar: {pinnedTask?.name} </div>
+    <div className={classes.container} data-state={sessionState}>
+      <div className={classes.toolbar}>{pinnedTask?.name} </div>
     </div>
   )
 }

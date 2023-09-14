@@ -1,5 +1,5 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
-import { completeTask } from 'store/reducer/task';
+import { completeTask, clearActiveTask } from 'store/reducer/task';
 import { IAppState } from 'types';
 import { createCompletedTask } from 'api/event';
 import { auth } from "Data/db";
@@ -19,6 +19,8 @@ listenerMiddleware.startListening({
           accessToken: authReducer.session.access_token,
           refreshToken: authReducer.session.refresh_token
         });
+
+        listenerApi.dispatch(clearActiveTask(task));
       }
     })();
 

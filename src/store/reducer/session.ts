@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ITask, ISessionReducer, IUrlSession } from 'types';
+import { clearActiveTask } from "store/reducer/task";
 
 export const SessionSlice = createSlice({
   name: 'Session',
@@ -16,7 +17,10 @@ export const SessionSlice = createSlice({
       state.startTime = Date.now();
     },
     addUrlChange: (state: ISessionReducer, action) => {
-      console.log('addUrlChange', action.payload);
+      if (!state.taskId) {
+        return;
+      }
+
       const activeUrlSession = state.activeUrlSession;
       if (activeUrlSession) {
         state.urlSession.push({
@@ -32,6 +36,17 @@ export const SessionSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(clearActiveTask, (state, action) => {
+      console.log("CLEAR ACTIVE TASK", action.payload);
+      state.taskId = undefined;
+      state.startTime = undefined;
+      state.urlSession = [];
+      state.activeUrlSession = undefined;
+    }).addDefaultCase((state, action) => {
+      console.log("Default case");
+    })
+  }
 });
 
 export const { startSession, addUrlChange } = SessionSlice.actions;

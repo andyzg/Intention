@@ -4,6 +4,7 @@ import { ITask } from './types';
 import store from "./store/store";
 import { wrapStore } from 'webext-redux';
 import { addUrlChange } from "store/reducer/session";
+import { setTasks } from "store/reducer/task";
 
 wrapStore(store);
 
@@ -15,7 +16,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   for (let i = 0; i < 10; i++) {
     const task: ITask = {
       id: util.generateId(),
-      name: `Task ${i + 1}`,
+      name: `Task hey ${i + 1}`,
       priority: i + 1,
       createdAt: Date.now(),
     }
@@ -28,6 +29,8 @@ chrome.runtime.onInstalled.addListener(async () => {
   await chrome.storage.local.set({
     tasks: payload,
   })
+
+  store.dispatch(setTasks(Object.values(payload)));
 });
 
 
