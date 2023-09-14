@@ -1,0 +1,6 @@
+.listContainer {
+  width: calc(100% - 18px);
+  border: 1px solid lightgray;
+  padding: 8px;
+  background: rgb(230,230,230);
+}

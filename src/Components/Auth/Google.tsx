@@ -7,8 +7,8 @@ export const GoogleAuth = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    auth.getUser();
     auth.onAuthStateChange((event, session) => {
+      console.log("On auth state change", event, session);
       if (session?.user) {
         setShow(false);
       } else {
@@ -21,7 +21,7 @@ export const GoogleAuth = () => {
     e.preventDefault();
     console.log(await auth.getUser());
     console.log("LOGIN!");
-    const { data, error } = await auth.signUp({
+    const { data, error } = await auth.signInWithPassword({
       email,
       password
     })

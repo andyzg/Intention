@@ -10,12 +10,13 @@ interface TaskListProps {
 const getItemStyle = (isDragging: boolean, draggableStyle: any): React.CSSProperties => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  padding: 2,
+  padding: 8,
   margin: `0 0 8px 0`,
+  borderRadius: 4,
 
   // change background colour if dragging
-  background: isDragging ? "lightgray" : "white",
-  border: "1px solid lightgray",
+  background: isDragging ? "rgb(240,240,240)" : "white",
+  border: "1px solid rgba(0,0,0,0.1)",
 
   // styles we need to apply on draggables
   ...draggableStyle

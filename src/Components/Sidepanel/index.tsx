@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { DroppableStateSnapshot } from "react-beautiful-dnd";
 import useAuth from "Hooks/useAuth";
+import classes from "./sidepanel.module.css";
 
 import { initApp } from "store/actions";
 import { getTasks } from "../../Data/task";
@@ -31,10 +32,6 @@ function generateId() {
 }
 
 const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  width: 250,
-  border: "1px solid lightgray",
-  padding: 8,
 });
 
 const SidePanelContent: React.FunctionComponent = () => {
@@ -57,6 +54,7 @@ const SidePanelContent: React.FunctionComponent = () => {
       result.destination.index
     );
 
+    console.log("ON DRAG END: ", newTaskOrder);
     dispatch(setTasks(newTaskOrder));
   }
 
@@ -71,6 +69,7 @@ const SidePanelContent: React.FunctionComponent = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
+              className={classes.listContainer}
             >
               <TaskList tasks={tasks} />
               {provided.placeholder}

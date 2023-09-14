@@ -28,11 +28,9 @@ const processSession = (session: any) => {
 };
 
 (async () => {
-
-  const data = await db.from("Session").select().eq("id", 27)
+  const data = await db.from("Session").select().eq("id", 39)
   const session = data.data[0];
   console.log(data);
   processSession(session);
   process.exit(0);
-
 })();
