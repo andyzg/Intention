@@ -11,9 +11,16 @@ export const completeTask = async (task: any, session: any) => {
 
   if (data) {
     const newTask = data[0];
-    const activeUrlSession = session.activeUrlSession;
-    activeUrlSession.endTime = Date.now();
-    const urlSessions = session.urlSession.concat([activeUrlSession]);
+    const urlSessions = session.urlSession;
+
+    // Only add the active session if there's an active one
+    // TODO: Move this logic to the client side
+    if (session.activeUrlSession) {
+      const activeUrlSession = session.activeUrlSession;
+      activeUrlSession.endTime = Date.now();
+      urlSessions.push(activeUrlSession);
+    }
+
     console.log("URL SESSIONS: ", JSON.stringify(urlSessions, null, 2));
 
     const r2 = await db.from("Session").insert({

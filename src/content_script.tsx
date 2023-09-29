@@ -27,7 +27,7 @@ function init() {
 
   app.id = 'react-root'
 
-  console.log("RENDER!");
+  console.log("RENDER!", body);
   if (body) {
     body.append(app)
   }
